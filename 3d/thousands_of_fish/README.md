@@ -16,7 +16,7 @@ Check out this demo on the Asset Store:
 
 ![GIF from the documentation](https://docs.godotengine.org/en/stable/_images/scene.gif)
 
-![Screenshot](screenshots/screenshot.png)
+![Screenshot](screenshots/screenshot.webp)
 
 ## License
 
