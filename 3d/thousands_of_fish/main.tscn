@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://jhr0q4037bl8"]
+
+[ext_resource type="Script" uid="uid://c65js5387joft" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="ArrayMesh" uid="uid://p8ubp50vk0nm" path="res://fish/Fish1.obj" id="3_7mycd"]
+[ext_resource type="Script" uid="uid://c0vaf5v1ncbay" path="res://multi_mesh_instance_3d.gd" id="4_1bvp3"]
+[ext_resource type="Shader" uid="uid://xh5iuglh6fx8" path="res://particle_fish.gdshader" id="7_272bh"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_1bvp3"]
+transform_format = 1
+use_custom_data = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efxa6"]
+shader = ExtResource("7_272bh")
+
+[sub_resource type="Environment" id="Environment_ulc20"]
+background_mode = 1
+background_color = Color(0.14994985, 0.5166276, 0.64854014, 1)
+background_energy_multiplier = 1.2
+sky_custom_fov = 102.0
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.26
+fog_light_color = Color(1.4439226e-07, 0.39560136, 0.6323764, 1)
+fog_light_energy = 1.35
+fog_sun_scatter = 0.11
+fog_sky_affect = 0.887
+fog_depth_curve = 0.6372804
+fog_depth_end = 281.8
+
+[sub_resource type="GDScript" id="GDScript_ulc20"]
+script/source = "extends Camera3D
+# Godot's default Camera3D script with physical_keycode instead of keycode.
+
+# Modifier keys' speed multiplier
+const SHIFT_MULTIPLIER = 2.5
+const ALT_MULTIPLIER = 1.0 / SHIFT_MULTIPLIER
+
+
+@export_range(0.0, 1.0) var sensitivity = 0.25
+
+# Mouse state
+var _mouse_position = Vector2(0.0, 0.0)
+var _total_pitch = 0.0
+
+# Movement state
+var _direction = Vector3(0.0, 0.0, 0.0)
+var _velocity = Vector3(0.0, 0.0, 0.0)
+var _acceleration = 30
+var _deceleration = -10
+var _vel_multiplier = 10
+
+# Keyboard state
+var _w = false
+var _s = false
+var _a = false
+var _d = false
+var _q = false
+var _e = false
+var _shift = false
+var _alt = false
+
+func _input(event):
+	# Receives mouse motion
+	if event is InputEventMouseMotion:
+		_mouse_position = event.relative
+	
+	# Receives mouse button input
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_RIGHT: # Only allows rotation if right click down
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if event.pressed else Input.MOUSE_MODE_VISIBLE)
+			MOUSE_BUTTON_WHEEL_UP: # Increases max velocity
+				_vel_multiplier = clamp(_vel_multiplier * 1.1, 0.2, 20)
+			MOUSE_BUTTON_WHEEL_DOWN: # Decereases max velocity
+				_vel_multiplier = clamp(_vel_multiplier / 1.1, 0.2, 20)
+
+	# Receives key input
+	if event is InputEventKey:
+		match event.physical_keycode:
+			KEY_W:
+				_w = event.pressed
+			KEY_S:
+				_s = event.pressed
+			KEY_A:
+				_a = event.pressed
+			KEY_D:
+				_d = event.pressed
+			KEY_Q:
+				_q = event.pressed
+			KEY_E:
+				_e = event.pressed
+			KEY_SHIFT:
+				_shift = event.pressed
+			KEY_ALT:
+				_alt = event.pressed
+
+# Updates mouselook and movement every frame
+func _process(delta):
+	_update_mouselook()
+	_update_movement(delta)
+
+# Updates camera movement
+func _update_movement(delta):
+	# Computes desired direction from key states
+	_direction = Vector3(
+		(_d as float) - (_a as float), 
+		(_e as float) - (_q as float),
+		(_s as float) - (_w as float)
+	)
+	
+	# Computes the change in velocity due to desired direction and \"drag\"
+	# The \"drag\" is a constant acceleration on the camera to bring it's velocity to 0
+	var offset = _direction.normalized() * _acceleration * _vel_multiplier * delta \\
+		+ _velocity.normalized() * _deceleration * _vel_multiplier * delta
+	
+	# Compute modifiers' speed multiplier
+	var speed_multi = 1
+	if _shift: speed_multi *= SHIFT_MULTIPLIER
+	if _alt: speed_multi *= ALT_MULTIPLIER
+	
+	# Checks if we should bother translating the camera
+	if _direction == Vector3.ZERO and offset.length_squared() > _velocity.length_squared():
+		# Sets the velocity to 0 to prevent jittering due to imperfect deceleration
+		_velocity = Vector3.ZERO
+	else:
+		# Clamps speed to stay within maximum value (_vel_multiplier)
+		_velocity.x = clamp(_velocity.x + offset.x, -_vel_multiplier, _vel_multiplier)
+		_velocity.y = clamp(_velocity.y + offset.y, -_vel_multiplier, _vel_multiplier)
+		_velocity.z = clamp(_velocity.z + offset.z, -_vel_multiplier, _vel_multiplier)
+	
+		translate(_velocity * delta * speed_multi)
+
+# Updates mouse look 
+func _update_mouselook():
+	# Only rotates mouse if the mouse is captured
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		_mouse_position *= sensitivity
+		var yaw = _mouse_position.x
+		var pitch = _mouse_position.y
+		_mouse_position = Vector2(0, 0)
+		
+		# Prevents looking up/down too far
+		pitch = clamp(pitch, -90 - _total_pitch, 90 - _total_pitch)
+		_total_pitch += pitch
+	
+		rotate_y(deg_to_rad(-yaw))
+		rotate_object_local(Vector3(1,0,0), deg_to_rad(-pitch))
+"
+
+[node name="Node3D" type="Node3D" unique_id=606103675]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=726794683]
+transform = Transform3D(-0.5778576, -0.694379, 0.42885715, 0, 0.5254716, 0.8508111, -0.8161376, 0.4916477, -0.3036478, 0, 0, 0)
+light_color = Color(0, 0.5883741, 0.58852565, 1)
+light_energy = 7.0
+shadow_enabled = true
+directional_shadow_max_distance = 159.0
+
+[node name="AnimatedFish" type="MeshInstance3D" parent="." unique_id=1824869319]
+script = ExtResource("1_ig7tw")
+Fish = ExtResource("3_7mycd")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1136613835]
+multimesh = SubResource("MultiMesh_1bvp3")
+script = ExtResource("4_1bvp3")
+
+[node name="ParticleFish" type="GPUParticles3D" parent="." unique_id=1671476996]
+extra_cull_margin = 209.9
+ignore_occlusion_culling = true
+amount = 2000
+lifetime = 12.09
+process_material = SubResource("ShaderMaterial_efxa6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=370069100]
+environment = SubResource("Environment_ulc20")
+
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=1932145011]
+transform = Transform3D(0.4073081, 0.06006234, 0.9113137, -0.14742962, 0.9890723, 0.0007058924, -0.9013127, -0.13464217, 0.41171217, 130.67014, 29.210339, 71.184685)
+current = true
+script = SubResource("GDScript_ulc20")
