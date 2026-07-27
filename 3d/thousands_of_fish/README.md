@@ -8,7 +8,7 @@ For more details, consider following the tutorial in the documentation.
 
 Language: GDScript
 
-Renderer: Compatibility
+Renderer: Forward+
 
 Check out this demo on the Asset Store:
 
