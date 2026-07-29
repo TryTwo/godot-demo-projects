@@ -20,12 +20,12 @@ An alternative method is to right-click a mesh and choose **Make Unique**, then 
 mesh surface material and choose **Convert to ShaderMaterial**. A converted material will make
 an editable shader that applies the original properties by default, and can be modified or read
 to see how it's done. Each surface should share the same shader to make the animation easier,
-but can still have individual material values if setup manually.
+but can still have individual material values if set up manually.
 
 MultiMesh creates instances of a mesh using per-instance transforms (position, rotation, scale),
 but must update transforms on the CPU. Instead, GPUParticles3D updates happen on the GPU,
 efficiently moving objects. Each node can function independently, except for this example having
-the model setup in the AnimatedFish mesh node.
+the model set up in the AnimatedFish mesh node.
 
 ## How to use it
 

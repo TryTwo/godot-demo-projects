@@ -18,7 +18,7 @@ func _input(input_event: InputEvent) -> void:
 		# Horizontal mouse look.
 		rot.y -= input_event.screen_relative.x * MOUSE_SENSITIVITY
 		# Vertical mouse look.
-		rot.x = clamp(rot.x - input_event.screen_relative.y * MOUSE_SENSITIVITY, -1.57, 1.57)
+		rot.x = clampf(rot.x - input_event.screen_relative.y * MOUSE_SENSITIVITY, -1.57, 1.57)
 		transform.basis = Basis.from_euler(rot)
 
 	if input_event.is_action_pressed(&"toggle_mouse_capture"):

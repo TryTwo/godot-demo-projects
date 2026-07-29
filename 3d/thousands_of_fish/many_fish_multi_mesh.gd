@@ -21,7 +21,7 @@ func setup_multimesh() -> void:
 		var xform := Transform3D()
 		xform = xform.translated(
 				Vector3(randf() * 200 - 20, randf() * 200 - 20, randf() * 200 - 20)
-		)
+			)
 		multimesh.set_instance_transform(i, xform)
 
 		# Optional for extra parameters per fish. The RGB components are used for color.
