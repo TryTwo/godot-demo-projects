@@ -16,42 +16,42 @@ extends MeshInstance3D
 @onready var particle_fish: GPUParticles3D = $"../ParticleFish"
 
 
-func _ready():
+func _ready() -> void:
 	if fish == null:
 		fish = load("res://fish/Fish1.obj")
 	convert_surface_materials()
 	share_mesh()
 
 
-func share_mesh():
+func share_mesh() -> void:
 	# Shares the mesh with other nodes so they won't need to repeat this work.
 	multi_fish.multimesh.mesh = mesh
 	particle_fish.draw_pass_1 = mesh
 
 
-func convert_surface_materials():
+func convert_surface_materials() -> void:
 	if fish is not Mesh:
 		return
 
 	# Duplicate the mesh so changes don't affect all instances.
 	mesh = fish.duplicate()
 
-	# Setup mesh data the shader will need. These can be set using any type of shader uniform(normal instance, or global).
-	var mesh_length = fish.get_aabb().size.z
-	var mesh_center = fish.get_aabb().position + fish.get_aabb().size / 2.0
+	# Setup mesh data the shader will need. These can be set using any type of shader uniform (normal, instance, or global).
+	var mesh_length := fish.get_aabb().size.z
+	var mesh_center := fish.get_aabb().position + fish.get_aabb().size / 2.0
 
 	# Our custom shader to animate the fish.
-	var shader = load("res://fish.gdshader")
+	var shader := load("res://fish.gdshader")
 
 	# Iterate through surfaces on the mesh and copy any parameters that need to be kept.
 	for i in mesh.get_surface_count():
 		# Create a new material for each surface so properties can be different. The shader itself is shared.
-		var new_mat = ShaderMaterial.new()
+		var new_mat := ShaderMaterial.new()
 		new_mat.shader = shader
 
 		# Get properties from the original mesh surface.
-		var old_mat = fish.surface_get_material(i)
-		var color = old_mat.albedo_color
+		var old_mat := fish.surface_get_material(i)
+		var color: Color = old_mat.albedo_color
 
 		# Load each property onto the new material. These need to be processed in the shader file.
 		new_mat.set_shader_parameter(&"albedo", color)

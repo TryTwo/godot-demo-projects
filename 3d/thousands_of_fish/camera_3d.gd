@@ -2,10 +2,11 @@ extends Camera3D
 
 
 const MOUSE_SENSITIVITY = 0.002
-const MOVE_SPEED = 5.0
+const MOVE_SPEED = 7.5
 
 var rot := Vector3()
 var velocity := Vector3()
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

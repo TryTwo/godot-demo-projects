@@ -2,7 +2,7 @@ shader_type particles;
 // Particle shader to emit many fish models.
 // Sets random velocities and outputs custom data to shaders.
 
-// Standard random number generator that Godot uses.
+// Standard random number generator that Godot uses in particle shaders.
 float rand_from_seed(in uint seed) {
 	int k;
 	int s = int(seed);
@@ -40,16 +40,12 @@ void start() {
 	vec3 position = vec3(rand_from_seed(alt_seed2) * 5.0 - 1.0,
 			rand_from_seed(alt_seed3) * 5.0 - 1.0,
 			rand_from_seed(alt_seed4) * 0.0 - 1.0);
-	TRANSFORM[3].xyz = position * 20.0;
+	TRANSFORM[3].xyz = position * 40.0;
 	VELOCITY.z = cos(TIME + CUSTOM.x * 6.28) * 4.0 + 6.0;
 
-	// CUSTOM.w will alter the fish's animation speed based on velocity. Can also use rgba.
+	// `CUSTOM.w` will alter the fish's animation speed based on velocity. Can also use RGBA.
 	CUSTOM.w = VELOCITY.z * 0.1;
 	CUSTOM.x = rand_from_seed(alt_seed5);
 	CUSTOM.y = rand_from_seed(alt_seed6);
 	CUSTOM.z = rand_from_seed(alt_seed7);
-}
-
-void process() {
-	// Called every frame on existing particles (according to the Fixed FPS property).
 }
