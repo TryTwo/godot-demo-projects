@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://jhr0q4037bl8"]
 
 [ext_resource type="Script" uid="uid://c65js5387joft" path="res://animated_fish.gd" id="1_ig7tw"]
-[ext_resource type="ArrayMesh" uid="uid://p8ubp50vk0nm" path="res://fish/Fish1.obj" id="3_7mycd"]
-[ext_resource type="Script" uid="uid://c0vaf5v1ncbay" path="res://many_fish_multi_mesh.gd" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://c0vaf5v1ncbay" path="res://multi_fish.gd" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://bhh3gs7tf0q1t" path="res://camera_3d.gd" id="6_7mycd"]
 [ext_resource type="Shader" uid="uid://xh5iuglh6fx8" path="res://particle_fish.gdshader" id="7_272bh"]
 
@@ -40,9 +39,9 @@ directional_shadow_max_distance = 159.0
 [node name="AnimatedFish" type="MeshInstance3D" parent="." unique_id=1824869319]
 instance_shader_parameters/time_scale = 3.0
 script = ExtResource("1_ig7tw")
-Fish = ExtResource("3_7mycd")
 
-[node name="ManyFishMultiMesh" type="MultiMeshInstance3D" parent="." unique_id=1136613835]
+[node name="MultiFish" type="MultiMeshInstance3D" parent="." unique_id=1136613835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.68652, 0, 0)
 multimesh = SubResource("MultiMesh_1bvp3")
 script = ExtResource("4_1bvp3")
 

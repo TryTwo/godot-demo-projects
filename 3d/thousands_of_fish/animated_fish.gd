@@ -12,7 +12,7 @@ extends MeshInstance3D
 			convert_surface_materials()
 			share_mesh()
 
-@onready var many_fish: MultiMeshInstance3D = $"../ManyFishMultiMesh"
+@onready var multi_fish: MultiMeshInstance3D = $"../MultiFish"
 @onready var particle_fish: GPUParticles3D = $"../ParticleFish"
 
 
@@ -25,7 +25,7 @@ func _ready():
 
 func share_mesh():
 	# Shares the mesh with other nodes so they won't need to repeat this work.
-	many_fish.multimesh.mesh = mesh
+	multi_fish.multimesh.mesh = mesh
 	particle_fish.draw_pass_1 = mesh
 
 

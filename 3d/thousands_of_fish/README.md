@@ -27,7 +27,7 @@ the model setup in the AnimatedFish mesh node.
 ## How to use it
 
 The AnimatedFish node has an export to change the mesh model used.
-The export also changes the model for ManyFishMultiMesh and ParticleFish.
+The export also changes the model for MultiFish and ParticleFish.
 
 ### Tweaking the animation
 
@@ -38,11 +38,11 @@ and must be edited separately for each node using the Fish model.
 
 ### Multiply the fish:
 
-The ManyFishMultiMesh node needs to have its instance count increased before it will show multiple fish.
+The MultiFish node needs to have its instance count increased before it will show multiple fish.
 Doing so will cause visual glitches due to random transforms being generated per fish.
-This can be fixed by pressing the exported Refresh button to run the node's code.
+To fix the transforms, press the exported Refresh button to run the node's code.
 Increasing the instance count in the inspector will also increase the scene size, due to caching the
-transforms. This can be avoided by setting the instance size programmatically once the game starts.
+transforms. To avoid a large cache, set the instance size programmatically once the game starts.
 
 ParticleFish uses GPU particles to allow the fish to move and for a set lifetime.
 GPUParticles3D has many options to experiment with in the inspector. The main variables are
