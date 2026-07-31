@@ -18,7 +18,7 @@ extends MeshInstance3D
 
 func _ready() -> void:
 	if fish == null:
-		fish = load("res://fish/Fish1.obj")
+		fish = load("res://fish/fish1.obj")
 	convert_surface_materials()
 	share_mesh()
 
