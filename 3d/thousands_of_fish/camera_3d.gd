@@ -1,6 +1,5 @@
 extends Camera3D
 
-
 const MOUSE_SENSITIVITY = 0.002
 const MOVE_SPEED = 7.5
 
