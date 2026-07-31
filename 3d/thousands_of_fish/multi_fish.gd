@@ -8,14 +8,16 @@ extends MultiMeshInstance3D
 # Changing the multimesh instance count using the inspector will create new buffer data(transforms)
 # filled with random data, causing the models to visually glitch out. Refresh will re-assign good transforms.
 @export_tool_button("Refresh")
-var refresh_action = setup_multimesh
+var refresh_action: Callable = setup_multimesh
 
 
-func _ready():
+func _ready() -> void:
+	# Due to using a @tool script, changing instance count here increases scene file size.
+	multimesh.instance_count = 2000
 	setup_multimesh()
 
 
-func setup_multimesh():
+func setup_multimesh() -> void:
 	# Give each fish instance a good transform with a random location.
 	for i in range(multimesh.instance_count):
 		var xform := Transform3D()
