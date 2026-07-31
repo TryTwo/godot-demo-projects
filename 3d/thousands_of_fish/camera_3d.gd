@@ -1,6 +1,5 @@
 extends Camera3D
 
-
 const MOUSE_SENSITIVITY = 0.002
 const MOVE_SPEED = 7.5
 
@@ -30,10 +29,10 @@ func _input(input_event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	var motion := Vector3(
-			Input.get_axis(&"move_left", &"move_right"),
-			0.0,
-			Input.get_axis(&"move_forward", &"move_back")
-		)
+		Input.get_axis(&"move_left", &"move_right"),
+		0.0,
+		Input.get_axis(&"move_forward", &"move_back"),
+	)
 	var motion_y: float = Input.get_axis(&"move_down", &"move_up")
 
 	# Normalize motion to prevent diagonal movement from being
