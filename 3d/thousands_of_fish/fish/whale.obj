@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Whale.blend'
 # www.blender.org
-mtllib Whale.mtl
+mtllib whale.mtl
 o Whale_Cylinder
 v 0.707241 -0.809575 -0.112119
 v 0.627607 -0.958355 -1.274340

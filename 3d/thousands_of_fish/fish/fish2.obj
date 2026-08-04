@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Fish2.blend'
 # www.blender.org
-mtllib Fish2.mtl
+mtllib fish2.mtl
 o Fish2_Fish
 v 0.187537 -1.189665 1.935193
 v 0.196340 1.729075 1.682788

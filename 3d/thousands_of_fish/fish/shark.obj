@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Shark.blend'
 # www.blender.org
-mtllib Shark.mtl
+mtllib shark.mtl
 o Shark_Cylinder
 v 1.164538 -0.594051 1.797952
 v 0.856614 -0.442347 -1.281517

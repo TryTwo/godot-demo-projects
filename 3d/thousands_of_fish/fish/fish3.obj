@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Fish3.blend'
 # www.blender.org
-mtllib Fish3.mtl
+mtllib fish3.mtl
 o ClownFish_Cube.001
 v 0.348992 -0.931087 1.675550
 v 0.337153 1.411148 1.332254

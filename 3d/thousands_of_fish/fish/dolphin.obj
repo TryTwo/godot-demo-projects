@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Dolphin.blend'
 # www.blender.org
-mtllib Dolphin.mtl
+mtllib dolphin.mtl
 o Dolphin
 v 0.724502 -0.259997 1.289664
 v 0.624793 -0.210429 -0.582696
