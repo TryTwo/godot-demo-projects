@@ -13,7 +13,9 @@ var refresh_action: Callable = setup_multimesh
 
 func _ready() -> void:
 	# Due to using a @tool script, changing instance count here increases scene file size.
-	multimesh.instance_count = 2000
+	# May also throw harmless errors about instance count.
+	if multimesh.instance_count == 0:
+		multimesh.instance_count = 2000
 	setup_multimesh()
 
 

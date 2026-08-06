@@ -8,7 +8,7 @@ extends MeshInstance3D
 @export var fish: Mesh:
 	set(value):
 		fish = value
-		if Engine.is_editor_hint():
+		if Engine.is_editor_hint() and is_node_ready():
 			convert_surface_materials()
 			share_mesh()
 
